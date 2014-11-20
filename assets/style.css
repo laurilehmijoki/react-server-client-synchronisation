@@ -14,3 +14,7 @@ input[type=text] {
   margin: 5px 0;
   text-align: center;
 }
+
+.tip {
+  opacity: 0.5;
+}
