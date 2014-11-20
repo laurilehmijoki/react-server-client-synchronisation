@@ -1,0 +1,16 @@
+body {
+  margin-left: auto;
+  margin-right: auto;
+  width: 320px;
+}
+
+input[type=text] {
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.result {
+  margin: 5px 0;
+  text-align: center;
+}

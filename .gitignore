@@ -1,0 +1,4 @@
+node_modules
+assets/bundle.js
+.idea
+*.iml

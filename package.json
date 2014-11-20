@@ -1,0 +1,34 @@
+{
+  "name": "react-server-client-sync",
+  "version": "0.0.1",
+  "description": "A showcase of an isomorphic application",
+  "browserify": {
+    "transform": [
+      [
+        "reactify",
+        {
+          "es6": true
+        }
+      ]
+    ]
+  },
+  "dependencies": {
+    "react": "0.12.1",
+    "express": "4.10.2",
+    "browserify": "6.3.2",
+    "reactify": "0.17.0",
+    "node-jsx": "0.12.0",
+    "request": "2.48.0",
+    "jquery": "2.1.1",
+    "baconjs": "^0.7.35"
+  },
+  "scripts": {
+    "start": "./dev-server.sh"
+  },
+  "author": "Lauri Lehmijoki",
+  "license": "MIT",
+  "devDependencies": {
+    "watchify": "2.1.1",
+    "supervisor": "0.6.0"
+  }
+}
