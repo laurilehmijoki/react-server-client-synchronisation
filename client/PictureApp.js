@@ -38,7 +38,7 @@ var PictureApp = (initialModel) => React.createFactory(React.createClass({
           <link href="/style.css" rel="stylesheet"/>
         </head>
         <body>
-          <input type="text" onChange={this.searchForPics} value={this.state.query}/>
+          <input type="text" onChange={this.searchForPics} placeholder="Search for pictures – try kittens!" value={this.state.query}/>
           {this.state.pictures.map((picture, key) =>
             <div key={key} className="result">
               <img src={picture.tbUrl}/>
