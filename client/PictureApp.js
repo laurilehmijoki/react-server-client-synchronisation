@@ -29,11 +29,6 @@ var PictureApp = (initialModel) => React.createFactory(React.createClass({
   },
 
   render: function() {
-    var tip = this.state.query ?
-      <div className="tip">
-        Pro Tip: try reloading the page – the search results will come from the server.
-        This means faster response times for mobile users.
-      </div> : undefined
     return (
       <html>
         <head>
@@ -44,7 +39,11 @@ var PictureApp = (initialModel) => React.createFactory(React.createClass({
         </head>
         <body>
           <input type="text" onChange={this.searchForPics} placeholder="Search for pictures – try kittens!" value={this.state.query}/>
-          {tip}
+          {this.state.query ?
+            <div className="tip">
+              Pro Tip: try reloading the page – the search results will come from the server.
+              This means faster response times for mobile users.
+            </div> : undefined}
           {this.state.pictures.map((picture, key) =>
             <div key={key} className="result">
               <img src={picture.tbUrl}/>
