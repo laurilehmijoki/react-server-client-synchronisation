@@ -4,7 +4,9 @@ var Bacon = require('baconjs')
 
 var searchResults = (function() {
   var searchQueue = new Bacon.Bus()
-  var results = searchQueue.flatMapLatest((query) => Bacon.fromPromise($.getJSON('/api/pictures?q=' + query)))
+  var results = searchQueue.flatMapLatest(
+    (query) => Bacon.fromPromise($.getJSON('/api/pictures?q=' + query))
+  )
   return function(query) {
     searchQueue.push(query)
     return results
@@ -34,11 +36,16 @@ var PictureApp = (initialModel) => React.createFactory(React.createClass({
         <head>
           <title>Search pictures</title>
           <script src="/bundle.js"/>
-          <script dangerouslySetInnerHTML={{__html: "window.INITIAL_MODEL = " + JSON.stringify(initialModel)}}/>
+          <script dangerouslySetInnerHTML={{__html:
+            "window.INITIAL_MODEL = " + JSON.stringify(initialModel)}} />
           <link href="/style.css" rel="stylesheet"/>
         </head>
         <body>
-          <input type="text" onChange={this.searchForPics} placeholder="Search for pictures – try kittens!" value={this.state.query}/>
+          <input
+            type="text"
+            onChange={this.searchForPics}
+            placeholder="Search for pictures – try kittens!"
+            value={this.state.query}/>
           {this.state.query ?
             <div className="tip">
               Pro Tip: try reloading the page – the search results will come from the server.
