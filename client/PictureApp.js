@@ -21,8 +21,7 @@ var PictureApp = React.createClass({
     }
   },
 
-  searchForPics: function(event) {
-    var query = event.target.value
+  searchForPics: function(query) {
     this.setState({query: query})
     history.replaceState(query, '', '/?q=' + query)
     searchResults(query).onValue(function(response) {
@@ -43,7 +42,7 @@ var PictureApp = React.createClass({
         <body>
           <input
             type="text"
-            onChange={this.searchForPics}
+            onChange={(event) => this.searchForPics(event.target.value)}
             placeholder="Search for pictures – try kittens!"
             value={this.state.query}/>
           {this.state.query ?
