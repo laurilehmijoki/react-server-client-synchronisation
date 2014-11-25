@@ -6,7 +6,7 @@ var searchResults = (function() {
   var searchQueue = new Bacon.Bus()
   var results = searchQueue.flatMapLatest(
     (query) => Bacon.fromPromise($.getJSON('/api/pictures?q=' + query))
-  )
+  ).log()
   return function(query) {
     searchQueue.push(query)
     return results
