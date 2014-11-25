@@ -1,27 +1,21 @@
 require('node-jsx').install({harmony: true})
 var express = require('express')
-var React = require('react')
 var request = require('request')
 var app = express()
 
 var PictureApp = require('../client/PictureApp.js')
 
 app.get('/', function(req, res, next) {
-  var query = req.query.q
-  function render(pictures) {
-    var initialModel = {
-      query: query,
-      pictures: pictures
-    }
-    res.send(React.renderToString(PictureApp(initialModel)()))
-  }
-  if (query) {
-    request(picturesUrl(req.query.q), function(err, res, body) {
-      render(JSON.parse(body).responseData.results)
-    })
-  } else {
-    render([])
-  }
+  res.send('\
+    <html>\
+      <head>\
+        <title>Search pictures</title>\
+        <script src="/bundle.js"></script>\
+        <link href="/style.css" rel="stylesheet"/>\
+      </head>\
+      <body id="app"></body>\
+    </html>\
+  ')
 })
 
 function picturesUrl(query) {

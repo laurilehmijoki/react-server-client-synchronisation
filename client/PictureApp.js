@@ -6,23 +6,29 @@ var searchResults = (function() {
   var searchQueue = new Bacon.Bus()
   var results = searchQueue.flatMapLatest(
     (query) => Bacon.fromPromise($.getJSON('/api/pictures?q=' + query))
-  )
+  ).log()
   return function(query) {
     searchQueue.push(query)
     return results
   }
 })()
 
-var PictureApp = (initialModel) => React.createFactory(React.createClass({
+var PictureApp = React.createClass({
   getInitialState: function() {
     return {
-      pictures: initialModel.pictures,
-      query: initialModel.query
+      pictures: [],
+      query: undefined
     }
   },
 
-  searchForPics: function(event) {
-    var query = event.target.value
+  componentDidMount: function() {
+    var initialSearchQuery = document.location.search.match(/\?q=(.*)/)[1]
+    if (initialSearchQuery) {
+      this.searchForPics(initialSearchQuery)
+    }
+  },
+
+  searchForPics: function(query) {
     this.setState({query: query})
     history.replaceState(query, '', '/?q=' + query)
     searchResults(query).onValue(function(response) {
@@ -32,25 +38,12 @@ var PictureApp = (initialModel) => React.createFactory(React.createClass({
 
   render: function() {
     return (
-      <html>
-        <head>
-          <title>Search pictures</title>
-          <script src="/bundle.js"/>
-          <script dangerouslySetInnerHTML={{__html:
-            "window.INITIAL_MODEL = " + JSON.stringify(initialModel)}} />
-          <link href="/style.css" rel="stylesheet"/>
-        </head>
-        <body>
-          <input
-            type="text"
-            onChange={this.searchForPics}
-            placeholder="Search for pictures – try kittens!"
-            value={this.state.query}/>
-          {this.state.query ?
-            <div className="tip">
-              Pro Tip: try reloading the page – the search results will come from the server.
-              This means faster response times for mobile users.
-            </div> : undefined}
+      <div>
+        <input
+          type="text"
+          onChange={(event) => this.searchForPics(event.target.value)}
+          placeholder="Search for pictures – try kittens!"
+          value={this.state.query}/>
           {this.state.pictures.map((picture, key) =>
             <div key={key} className="result">
               <img src={picture.tbUrl}/>
@@ -58,17 +51,16 @@ var PictureApp = (initialModel) => React.createFactory(React.createClass({
               <a href={picture.originalContextUrl}>{picture.titleNoFormatting}</a>
             </div>
           )}
-        </body>
-      </html>
+      </div>
     )
   }
-}))
+})
 
 var inBrowser = typeof window != 'undefined'
 
 if (inBrowser) {
   window.onload = function() {
-    React.render(PictureApp(window.INITIAL_MODEL)(), document)
+    React.render(<PictureApp/>, document.getElementById('app'))
   }
 }
 
