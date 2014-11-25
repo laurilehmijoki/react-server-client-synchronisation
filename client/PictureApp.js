@@ -13,11 +13,11 @@ var searchResults = (function() {
   }
 })()
 
-var PictureApp = (initialModel) => React.createFactory(React.createClass({
+var PictureApp = React.createClass({
   getInitialState: function() {
     return {
-      pictures: initialModel.pictures,
-      query: initialModel.query
+      pictures: this.props.initialModel.pictures,
+      query: this.props.initialModel.query
     }
   },
 
@@ -37,7 +37,7 @@ var PictureApp = (initialModel) => React.createFactory(React.createClass({
           <title>Search pictures</title>
           <script src="/bundle.js"/>
           <script dangerouslySetInnerHTML={{__html:
-            "window.INITIAL_MODEL = " + JSON.stringify(initialModel)}} />
+            "window.INITIAL_MODEL = " + JSON.stringify(this.props.initialModel)}} />
           <link href="/style.css" rel="stylesheet"/>
         </head>
         <body>
@@ -62,13 +62,13 @@ var PictureApp = (initialModel) => React.createFactory(React.createClass({
       </html>
     )
   }
-}))
+})
 
 var inBrowser = typeof window != 'undefined'
 
 if (inBrowser) {
   window.onload = function() {
-    React.render(PictureApp(window.INITIAL_MODEL)(), document)
+    React.render(<PictureApp initialModel={window.INITIAL_MODEL}/>, document)
   }
 }
 

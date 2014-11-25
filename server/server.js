@@ -4,7 +4,7 @@ var React = require('react')
 var request = require('request')
 var app = express()
 
-var PictureApp = require('../client/PictureApp.js')
+var PictureApp = React.createFactory(require('../client/PictureApp.js'))
 
 app.get('/', function(req, res, next) {
   var query = req.query.q
@@ -13,7 +13,7 @@ app.get('/', function(req, res, next) {
       query: query,
       pictures: pictures
     }
-    res.send(React.renderToString(PictureApp(initialModel)()))
+    res.send(React.renderToString(PictureApp({initialModel: initialModel})))
   }
   if (query) {
     request(picturesUrl(req.query.q), function(err, res, body) {
