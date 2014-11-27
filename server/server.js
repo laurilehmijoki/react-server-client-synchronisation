@@ -3,8 +3,6 @@ var express = require('express')
 var request = require('request')
 var app = express()
 
-var PictureApp = require('../client/PictureApp.js')
-
 app.get('/', function(req, res, next) {
   res.send('\
     <html>\
