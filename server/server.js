@@ -8,7 +8,7 @@ app.get('/', function(req, res, next) {
     <html>\
       <head>\
         <title>Search pictures</title>\
-        <script src="/bundle.js"></script>\
+        <script async="true" src="/bundle.js"></script>\
         <link href="/style.css" rel="stylesheet"/>\
       </head>\
       <body id="app"></body>\
