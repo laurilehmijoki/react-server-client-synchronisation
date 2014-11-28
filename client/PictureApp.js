@@ -34,7 +34,7 @@ var PictureApp = React.createClass({
       <html>
         <head>
           <title>Search pictures</title>
-          <script src="/bundle.js"/>
+          <script async="true" src="/bundle.js"/>
           <script dangerouslySetInnerHTML={{__html:
             "window.INITIAL_MODEL = " + JSON.stringify(this.props.initialModel)}} />
           <link href="/style.css" rel="stylesheet"/>
