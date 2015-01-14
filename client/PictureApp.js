@@ -22,7 +22,7 @@ var PictureApp = React.createClass({
   },
 
   componentDidMount: function() {
-    var initialSearchQuery = document.location.search.match(/\?q=(.*)/)[1]
+    var initialSearchQuery = (document.location.search.match(/\?q=(.*)/) || [])[1]
     if (initialSearchQuery) {
       this.searchForPics(initialSearchQuery)
     }
