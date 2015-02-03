@@ -4,24 +4,8 @@ var React = require('react')
 var request = require('request')
 var app = express()
 
-var PictureApp = React.createFactory(require('../client/PictureApp.js'))
-
 app.get('/', function(req, res, next) {
-  var query = req.query.q
-  function render(pictures) {
-    var initialModel = {
-      query: query,
-      pictures: pictures
-    }
-    res.send(React.renderToString(PictureApp({initialModel: initialModel})))
-  }
-  if (query) {
-    request(picturesUrl(req.query.q), function(err, res, body) {
-      render(JSON.parse(body).responseData.results)
-    })
-  } else {
-    render([])
-  }
+  res.send('Ok')
 })
 
 function picturesUrl(query) {
